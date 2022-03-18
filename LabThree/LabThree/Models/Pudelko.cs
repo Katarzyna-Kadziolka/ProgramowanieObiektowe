@@ -83,6 +83,12 @@ public sealed class Pudelko : IEquatable<Pudelko> {
         return new Pudelko(a, b, c);
     }
 
+    public static explicit operator double[](Pudelko box) => new[]
+        { Convert.ToDouble(box.A), Convert.ToDouble(box.B), Convert.ToDouble(box.C) };
+
+    public static implicit operator Pudelko(ValueTuple<int, int, int> values) =>
+        new (values.Item1, values.Item2, values.Item3, UnitOfMeasure.Milimeter);
+
     public override string ToString() {
         return $"{A} m × {B} m × {C} m";
     }
