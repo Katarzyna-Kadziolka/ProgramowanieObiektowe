@@ -53,12 +53,26 @@ public sealed class Pudelko : IEquatable<Pudelko> {
     }
 
     public bool Equals(Pudelko? box) {
-        return Equals((object)box);
+        return Equals((object?) box);
     }
 
     public override int GetHashCode() {
         return HashCode.Combine(A, B, C);
     }
+    public static bool operator == (Pudelko? leftBox, Pudelko? rightBox) {
+        if (leftBox is null && rightBox is null) {
+            return true;
+        }
+        if (leftBox is null && rightBox is not null) {
+            return false;
+        }
+        if (leftBox is not null && rightBox is null) {
+            return false;
+        }
+        return leftBox.Equals(rightBox);
+    }
+
+    public static bool operator != (Pudelko? leftBox, Pudelko? rightBox) => !(leftBox == rightBox);
 
     public override string ToString() {
         return $"{A} m × {B} m × {C} m";

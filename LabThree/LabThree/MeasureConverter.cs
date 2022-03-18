@@ -1,7 +1,7 @@
 ﻿namespace LabThree; 
 
 public static class MeasureConverter {
-	public static double ConvertToMeters(double value, UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
+	public static decimal ConvertToMeters(decimal value, UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
 		switch (unitOfMeasure) {
 			case UnitOfMeasure.Unknown:
 				throw new ArgumentException("Unit of measure cannot be unknown");
@@ -15,7 +15,7 @@ public static class MeasureConverter {
 				throw new ArgumentOutOfRangeException(nameof(unitOfMeasure), unitOfMeasure, null);
 		}
 	}
-	public static double ConvertToCentimeters(double value, UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
+	public static decimal ConvertToCentimeters(decimal value, UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
 		switch (unitOfMeasure) {
 			case UnitOfMeasure.Unknown:
 				throw new ArgumentException("Unit of measure cannot be unknown");
@@ -29,7 +29,7 @@ public static class MeasureConverter {
 				throw new ArgumentOutOfRangeException(nameof(unitOfMeasure), unitOfMeasure, null);
 		}
 	}
-	public static double ConvertToMilimeters(double value, UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
+	public static decimal ConvertToMilimeters(decimal value, UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
 		switch (unitOfMeasure) {
 			case UnitOfMeasure.Unknown:
 				throw new ArgumentException("Unit of measure cannot be unknown");
