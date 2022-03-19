@@ -9,43 +9,41 @@ public sealed class Pudelko : IEquatable<Pudelko> {
     private decimal _c;
 
     public decimal A {
-        get { return Math.Round(_a, 3); }
-        set { _a = value; }
+        get => Math.Round(_a, 3);
+        init => _a = value;
     }
 
     public decimal B {
-        get { return Math.Round(_b, 3); }
-        set { _b = value; }
+        get => Math.Round(_b, 3);
+        init => _b = value;
     }
 
     public decimal C {
-        get { return Math.Round(_c, 3); }
-        set { _c = value; }
+        get => Math.Round(_c, 3);
+        init => _c = value;
     }
 
-    public UnitOfMeasure UnitOfMeasure { get; set; }
+    public UnitOfMeasure UnitOfMeasure { get; init; }
 
-    public decimal Objetosc {
-        get { return Math.Round(_a * _b * _c, 9); }
-    }
-    public decimal Pole {
-        get { return Math.Round(_a * _b * 2 + _a * _c * 2 + _b * _c * 2, 6); }
-    }
+    public decimal Objetosc => Math.Round(_a * _b * _c, 9);
+    public decimal Pole => Math.Round(_a * _b * 2 + _a * _c * 2 + _b * _c * 2, 6);
 
-    public Pudelko(decimal a = 0.1m, decimal b = 0.1m, decimal c = 0.1m, UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
+    public Pudelko(decimal a = 0.1m, decimal b = 0.1m, decimal c = 0.1m,
+        UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
         if (a < 0 || b < 0 || c < 0 || a > 10 || b > 10 || c > 10) {
             throw new ArgumentOutOfRangeException();
         }
+
         UnitOfMeasure = unitOfMeasure;
         A = MeasureConverter.ConvertToMeters(a, UnitOfMeasure);
         B = MeasureConverter.ConvertToMeters(b, UnitOfMeasure);
         C = MeasureConverter.ConvertToMeters(c, UnitOfMeasure);
     }
-    
+
     public override bool Equals(object? obj) {
-        if( obj == null ) return false;
-        if( ReferenceEquals(this, obj)) return true;
-        if ( !(obj is Pudelko) ) return false;
+        if (obj == null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (!(obj is Pudelko)) return false;
         var box = (Pudelko)obj;
         var parameters = new List<decimal> { A, B, C };
         var parametersCompared = new List<decimal> { box.A, box.B, box.C };
@@ -53,30 +51,34 @@ public sealed class Pudelko : IEquatable<Pudelko> {
     }
 
     public bool Equals(Pudelko? box) {
-        return Equals((object?) box);
+        return Equals((object?)box);
     }
 
     public override int GetHashCode() {
         return HashCode.Combine(A, B, C);
     }
-    public static bool operator == (Pudelko? leftBox, Pudelko? rightBox) {
+
+    public static bool operator ==(Pudelko? leftBox, Pudelko? rightBox) {
         if (leftBox is null && rightBox is null) {
             return true;
         }
+
         if (leftBox is null && rightBox is not null) {
             return false;
         }
+
         if (leftBox is not null && rightBox is null) {
             return false;
         }
+
         return leftBox.Equals(rightBox);
     }
 
-    public static bool operator != (Pudelko? leftBox, Pudelko? rightBox) => !(leftBox == rightBox);
+    public static bool operator !=(Pudelko? leftBox, Pudelko? rightBox) => !(leftBox == rightBox);
 
-    public static Pudelko operator + (Pudelko leftBox, Pudelko rightBox) {
-        var leftBoxParameters = new [] { leftBox.A, leftBox.B, leftBox.C }.OrderByDescending(a  => a).ToArray();
-        var rightBoxParameters = new [] { rightBox.A, rightBox.B, rightBox.C }.OrderByDescending(a  => a).ToArray();
+    public static Pudelko operator +(Pudelko leftBox, Pudelko rightBox) {
+        var leftBoxParameters = new[] { leftBox.A, leftBox.B, leftBox.C }.OrderByDescending(a => a).ToArray();
+        var rightBoxParameters = new[] { rightBox.A, rightBox.B, rightBox.C }.OrderByDescending(a => a).ToArray();
         var a = new[] { leftBoxParameters[0], rightBoxParameters[0] }.Max();
         var b = new[] { leftBoxParameters[1], rightBoxParameters[1] }.Max();
         var c = leftBoxParameters[2] + rightBoxParameters[2];
@@ -87,11 +89,19 @@ public sealed class Pudelko : IEquatable<Pudelko> {
         { Convert.ToDouble(box.A), Convert.ToDouble(box.B), Convert.ToDouble(box.C) };
 
     public static implicit operator Pudelko(ValueTuple<int, int, int> values) =>
-        new (values.Item1, values.Item2, values.Item3, UnitOfMeasure.Milimeter);
+        new(values.Item1, values.Item2, values.Item3, UnitOfMeasure.Milimeter);
+
+    public decimal this[int index] {
+        get {
+            var parameters = new[] { A, B, C };
+            return parameters[index];
+        }
+    }
 
     public override string ToString() {
         return $"{A} m × {B} m × {C} m";
     }
+
     public string ToString(string format) {
         return format switch {
             "m" => ToString(),
