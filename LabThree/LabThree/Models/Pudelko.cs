@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace LabThree;
 
-public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal> {
+public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal>, IFormattable {
     // przechowuje w metrach
     private decimal _a;
     private decimal _b;
@@ -137,17 +138,26 @@ public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal> {
 
         return new Pudelko(values[0], values[1], values[2], unitOfMeasure);
     }
-
-    public string ToString(string format) {
+    
+    public string ToString(string? format, IFormatProvider? formatProvider) {
+        if (formatProvider is null) {
+            formatProvider = CultureInfo.CurrentCulture;
+        }
         return format switch {
-            "m" => ToString(),
-            "cm" => $"{Math.Round(MeasureConverter.ConvertToCentimeters(A), 1)} cm × " +
-                    $"{Math.Round(MeasureConverter.ConvertToCentimeters(B), 1)} cm × " +
-                    $"{Math.Round(MeasureConverter.ConvertToCentimeters(C), 1)} cm",
-            "mm" => $"{Math.Round(MeasureConverter.ConvertToMilimeters(A), 0)} mm × " +
-                    $"{Math.Round(MeasureConverter.ConvertToMilimeters(B), 0)} mm × " +
-                    $"{Math.Round(MeasureConverter.ConvertToMilimeters(C), 0)} mm",
+            "m" => $"{Math.Round(A, 1).ToString(formatProvider)} m × " +
+                   $"{Math.Round(B, 1).ToString(formatProvider)} m × " +
+                   $"{Math.Round(C, 1).ToString(formatProvider)} m",
+            "cm" => $"{Math.Round(MeasureConverter.ConvertToCentimeters(A), 1).ToString(formatProvider)} cm × " +
+                    $"{Math.Round(MeasureConverter.ConvertToCentimeters(B), 1).ToString(formatProvider)} cm × " +
+                    $"{Math.Round(MeasureConverter.ConvertToCentimeters(C), 1).ToString(formatProvider)} cm",
+            "mm" => $"{Math.Round(MeasureConverter.ConvertToMilimeters(A), 0).ToString(formatProvider)} mm × " +
+                    $"{Math.Round(MeasureConverter.ConvertToMilimeters(B), 0).ToString(formatProvider)} mm × " +
+                    $"{Math.Round(MeasureConverter.ConvertToMilimeters(C), 0).ToString(formatProvider)} mm",
             _ => throw new FormatException()
         };
+    }
+
+    public string ToString(string format) {
+        return ToString(format, null);
     }
 }
