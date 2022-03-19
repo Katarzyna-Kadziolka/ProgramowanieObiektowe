@@ -1,12 +1,14 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace LabThree;
 
-public sealed class Pudelko : IEquatable<Pudelko> {
+public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal> {
     // przechowuje w metrach
     private decimal _a;
     private decimal _b;
     private decimal _c;
+    private decimal[] _parameters;
 
     public decimal A {
         get => Math.Round(_a, 3);
@@ -38,6 +40,7 @@ public sealed class Pudelko : IEquatable<Pudelko> {
         A = MeasureConverter.ConvertToMeters(a, UnitOfMeasure);
         B = MeasureConverter.ConvertToMeters(b, UnitOfMeasure);
         C = MeasureConverter.ConvertToMeters(c, UnitOfMeasure);
+        _parameters = new[] { A, B, C };
     }
 
     public override bool Equals(object? obj) {
@@ -45,9 +48,8 @@ public sealed class Pudelko : IEquatable<Pudelko> {
         if (ReferenceEquals(this, obj)) return true;
         if (!(obj is Pudelko)) return false;
         var box = (Pudelko)obj;
-        var parameters = new List<decimal> { A, B, C };
-        var parametersCompared = new List<decimal> { box.A, box.B, box.C };
-        return parameters.All(parametersCompared.Contains) && parameters.Count == parametersCompared.Count;
+        var parametersCompared = new [] { box.A, box.B, box.C };
+        return _parameters.All(parametersCompared.Contains) && _parameters.Length == parametersCompared.Length;
     }
 
     public bool Equals(Pudelko? box) {
@@ -83,6 +85,7 @@ public sealed class Pudelko : IEquatable<Pudelko> {
         var b = new[] { leftBoxParameters[1], rightBoxParameters[1] }.Max();
         var c = leftBoxParameters[2] + rightBoxParameters[2];
         return new Pudelko(a, b, c);
+        // sprobuj przy testach z _parameters
     }
 
     public static explicit operator double[](Pudelko box) => new[]
@@ -91,15 +94,20 @@ public sealed class Pudelko : IEquatable<Pudelko> {
     public static implicit operator Pudelko(ValueTuple<int, int, int> values) =>
         new(values.Item1, values.Item2, values.Item3, UnitOfMeasure.Milimeter);
 
-    public decimal this[int index] {
-        get {
-            var parameters = new[] { A, B, C };
-            return parameters[index];
-        }
-    }
+    public decimal this[int index] => _parameters[index];
 
     public override string ToString() {
         return $"{A} m × {B} m × {C} m";
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+        return GetEnumerator();
+    }
+    
+    public IEnumerator<decimal> GetEnumerator() {
+        foreach (var parameter in _parameters) {
+            yield return parameter;
+        }
     }
 
     public string ToString(string format) {
