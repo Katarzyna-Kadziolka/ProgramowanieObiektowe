@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace LabThree;
 
@@ -48,7 +48,7 @@ public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal> {
         if (ReferenceEquals(this, obj)) return true;
         if (!(obj is Pudelko)) return false;
         var box = (Pudelko)obj;
-        var parametersCompared = new [] { box.A, box.B, box.C };
+        var parametersCompared = new[] { box.A, box.B, box.C };
         return _parameters.All(parametersCompared.Contains) && _parameters.Length == parametersCompared.Length;
     }
 
@@ -103,11 +103,39 @@ public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal> {
     IEnumerator IEnumerable.GetEnumerator() {
         return GetEnumerator();
     }
-    
+
     public IEnumerator<decimal> GetEnumerator() {
         foreach (var parameter in _parameters) {
             yield return parameter;
         }
+    }
+
+    public static Pudelko Parse(string text) {
+        var regex = new Regex(@"([0-9]+\.?[0-9]*) ([m,mm,cm]+)");
+        var matches = regex.Matches(text);
+        if (matches.Count != 3) {
+            throw new FormatException();
+        }
+
+        var values = matches.Select(a => decimal.Parse(a.Groups[1].Value)).ToArray();
+        if (values.Count() != 3) {
+            throw new FormatException();
+        }
+        var unitOfMeasureString = matches[0].Groups[2].Value;
+        var unitOfMeasure = UnitOfMeasure.Unknown;
+        switch (unitOfMeasureString) {
+            case "m":
+                unitOfMeasure = UnitOfMeasure.Meter;
+                break;
+            case "cm":
+                unitOfMeasure = UnitOfMeasure.Centimeter;
+                break;
+            case "mm":
+                unitOfMeasure = UnitOfMeasure.Milimeter;
+                break;
+        }
+
+        return new Pudelko(values[0], values[1], values[2], unitOfMeasure);
     }
 
     public string ToString(string format) {
