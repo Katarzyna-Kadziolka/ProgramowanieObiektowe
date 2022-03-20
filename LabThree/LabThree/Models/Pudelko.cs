@@ -12,35 +12,39 @@ public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal>, IFormat
     private decimal[] _parameters;
 
     public decimal A {
-        get => Math.Round(_a, 3);
+        // get => Math.Round(_a, 3);
+        get => Math.Round(_a, 3, MidpointRounding.ToZero);
         init => _a = value;
     }
 
     public decimal B {
-        get => Math.Round(_b, 3);
+        get => Math.Round(_b, 3, MidpointRounding.ToZero);
         init => _b = value;
     }
 
     public decimal C {
-        get => Math.Round(_c, 3);
+        get => Math.Round(_c, 3, MidpointRounding.ToZero);
         init => _c = value;
     }
 
-    public UnitOfMeasure UnitOfMeasure { get; init; }
+    public UnitOfMeasure Unit { get; init; }
 
     public decimal Objetosc => Math.Round(_a * _b * _c, 9);
     public decimal Pole => Math.Round(_a * _b * 2 + _a * _c * 2 + _b * _c * 2, 6);
 
-    public Pudelko(decimal a = 0.1m, decimal b = 0.1m, decimal c = 0.1m,
-        UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
-        if (a < 0 || b < 0 || c < 0 || a > 10 || b > 10 || c > 10) {
+    public Pudelko(decimal a = decimal.MinValue, decimal b = decimal.MinValue, decimal c = decimal.MinValue,
+        UnitOfMeasure unit = UnitOfMeasure.Meter) {
+        Unit = unit;
+        if (a == decimal.MinValue) A = 0.1m;
+        else A = MeasureConverter.ConvertToMeters(a, Unit);
+        if (b == decimal.MinValue) B = 0.1m;
+        else B = MeasureConverter.ConvertToMeters(b, Unit);
+        if (c == decimal.MinValue) C = 0.1m;
+        else C = MeasureConverter.ConvertToMeters(c, Unit);
+        
+        if (A <= 0 || B <= 0 || C <= 0 || A > 10 || B > 10 || C > 10) {
             throw new ArgumentOutOfRangeException();
         }
-
-        UnitOfMeasure = unitOfMeasure;
-        A = MeasureConverter.ConvertToMeters(a, UnitOfMeasure);
-        B = MeasureConverter.ConvertToMeters(b, UnitOfMeasure);
-        C = MeasureConverter.ConvertToMeters(c, UnitOfMeasure);
         _parameters = new[] { A, B, C };
     }
 
@@ -98,7 +102,9 @@ public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal>, IFormat
     public decimal this[int index] => _parameters[index];
 
     public override string ToString() {
-        return $"{A} m × {B} m × {C} m";
+        return $"{A.ToString("#0.000", null)} m × " +
+               $"{B.ToString("#0.000", null)} m × " +
+               $"{C.ToString("#0.000", null)} m";
     }
 
     IEnumerator IEnumerable.GetEnumerator() {
@@ -144,15 +150,15 @@ public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal>, IFormat
             formatProvider = CultureInfo.CurrentCulture;
         }
         return format switch {
-            "m" => $"{Math.Round(A, 1).ToString(formatProvider)} m × " +
-                   $"{Math.Round(B, 1).ToString(formatProvider)} m × " +
-                   $"{Math.Round(C, 1).ToString(formatProvider)} m",
-            "cm" => $"{Math.Round(MeasureConverter.ConvertToCentimeters(A), 1).ToString(formatProvider)} cm × " +
-                    $"{Math.Round(MeasureConverter.ConvertToCentimeters(B), 1).ToString(formatProvider)} cm × " +
-                    $"{Math.Round(MeasureConverter.ConvertToCentimeters(C), 1).ToString(formatProvider)} cm",
-            "mm" => $"{Math.Round(MeasureConverter.ConvertToMilimeters(A), 0).ToString(formatProvider)} mm × " +
-                    $"{Math.Round(MeasureConverter.ConvertToMilimeters(B), 0).ToString(formatProvider)} mm × " +
-                    $"{Math.Round(MeasureConverter.ConvertToMilimeters(C), 0).ToString(formatProvider)} mm",
+            "m" => $"{A.ToString("#0.000",formatProvider)} m × " +
+                   $"{B.ToString("#0.000",formatProvider)} m × " +
+                   $"{C.ToString("#0.000",formatProvider)} m",
+            "cm" => $"{MeasureConverter.ConvertToCentimeters(A).ToString("F1", formatProvider)} cm × " +
+                    $"{MeasureConverter.ConvertToCentimeters(B).ToString("F1", formatProvider)} cm × " +
+                    $"{MeasureConverter.ConvertToCentimeters(C).ToString("F1", formatProvider)} cm",
+            "mm" => $"{MeasureConverter.ConvertToMilimeters(A).ToString("####0", formatProvider)} mm × " +
+                    $"{MeasureConverter.ConvertToMilimeters(B).ToString("####0", formatProvider)} mm × " +
+                    $"{MeasureConverter.ConvertToMilimeters(C).ToString("####0", formatProvider)} mm",
             _ => throw new FormatException()
         };
     }
