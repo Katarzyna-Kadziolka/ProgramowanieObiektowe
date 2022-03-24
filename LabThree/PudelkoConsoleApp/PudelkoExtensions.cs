@@ -1,4 +1,5 @@
-﻿using LabThree;
+﻿using System;
+using LabThree;
 
 namespace PudelkoConsoleApp; 
 

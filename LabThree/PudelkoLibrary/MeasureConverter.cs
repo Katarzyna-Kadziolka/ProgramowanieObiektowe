@@ -1,4 +1,6 @@
-﻿namespace LabThree; 
+﻿using System;
+
+namespace LabThree; 
 
 public static class MeasureConverter {
 	public static decimal ConvertToMeters(decimal value, UnitOfMeasure unitOfMeasure = UnitOfMeasure.Meter) {
