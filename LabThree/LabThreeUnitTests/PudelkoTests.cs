@@ -486,8 +486,75 @@ public class PudelkoTests {
     #endregion
 
     #region Pole, Objętość
-
+    [Test]
+    [TestCase(2.500, 9.321, 0.100, UnitOfMeasure.Meter, 48.969200)]
+    [TestCase(250, 32.1, 50.5, UnitOfMeasure.Centimeter, 4.454210)]
+    [TestCase(300, 800, 2500.5, UnitOfMeasure.Milimeter, 5.981100)]
+    public void Pole_ShouldReturnDecimal(decimal a, decimal b, decimal c, UnitOfMeasure unit, decimal expectedResult) {
+        // Arrange
+        var box = new Pudelko(a, b, c, unit);
+        // Act
+        var area = box.Pole;
+        // Assert
+        area.Should().Be(expectedResult);
+    }
+    [Test]
+    [TestCase(2.500, 9.321, 0.100, UnitOfMeasure.Meter, 2.330250000)]
+    [TestCase(250, 32.1, 50.5, UnitOfMeasure.Centimeter, 0.405262500)]
+    [TestCase(300, 800, 2500.5, UnitOfMeasure.Milimeter, 0.600120000)]
+    public void Objetosc_ShouldReturnDecimal(decimal a, decimal b, decimal c, UnitOfMeasure unit, decimal expectedResult) {
+        // Arrange
+        var box = new Pudelko(a, b, c, unit);
+        // Act
+        var volume = box.Objetosc;
+        // Assert
+        volume.Should().Be(expectedResult);
+    }
     
 
+    #endregion
+
+    #region Equals
+    [Test]
+    public void Equals_Null_ShouldReturnFalse() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = box.Equals(null);
+        // Assert
+        result.Should().BeFalse();
+    }
+    [Test]
+    public void Equals_List_ShouldReturnFalse() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = box.Equals(new List<int>());
+        // Assert
+        result.Should().BeFalse();
+    }
+    [Test]
+    public void Equals_TheSameBox_ShouldReturnTrue() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = box.Equals(box);
+        // Assert
+        result.Should().BeTrue();
+    }
+    [Test]
+    [TestCase(2.5, 9.321, 0.1)]
+    [TestCase(2.5, 0.1, 9.321)]
+    [TestCase(9.321, 0.1, 2.5)]
+    public void Equals_DifferentBoxWithIdenticalValues_ShouldReturnTrue(decimal a, decimal b, decimal c) {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        var boxToCompare = new Pudelko(a, b, c);
+        // Act
+        var result = box.Equals(boxToCompare);
+        // Assert
+        result.Should().BeTrue();
+    }
+    
     #endregion
 }
