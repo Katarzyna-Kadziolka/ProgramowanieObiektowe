@@ -84,8 +84,8 @@ public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal>, IFormat
     public static bool operator !=(Pudelko? leftBox, Pudelko? rightBox) => !(leftBox == rightBox);
 
     public static Pudelko operator +(Pudelko leftBox, Pudelko rightBox) {
-        var leftBoxParameters = new[] { leftBox.A, leftBox.B, leftBox.C }.OrderByDescending(a => a).ToArray();
-        var rightBoxParameters = new[] { rightBox.A, rightBox.B, rightBox.C }.OrderByDescending(a => a).ToArray();
+        var leftBoxParameters = leftBox._parameters.OrderByDescending(a => a).ToArray();
+        var rightBoxParameters = rightBox._parameters.OrderByDescending(a => a).ToArray();
         var a = new[] { leftBoxParameters[0], rightBoxParameters[0] }.Max();
         var b = new[] { leftBoxParameters[1], rightBoxParameters[1] }.Max();
         var c = leftBoxParameters[2] + rightBoxParameters[2];

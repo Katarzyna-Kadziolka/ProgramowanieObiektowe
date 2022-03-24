@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabThree", "LabThree\LabThree.csproj", "{BF429258-A0D5-4A75-B2BF-3781C522E387}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PudelkoLibrary", "PudelkoLibrary\PudelkoLibrary.csproj", "{BF429258-A0D5-4A75-B2BF-3781C522E387}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabThreeUnitTests", "LabThreeUnitTests\LabThreeUnitTests.csproj", "{741DD374-DDCB-4CC3-A430-6A4045678158}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PudelkoLibraryTests", "PudelkoLibraryTests\PudelkoLibraryTests.csproj", "{741DD374-DDCB-4CC3-A430-6A4045678158}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

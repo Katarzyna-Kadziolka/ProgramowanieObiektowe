@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
+
+        <RootNamespace>LabThreeUnitTests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LabThree\LabThree.csproj" />
+      <ProjectReference Include="..\PudelkoLibrary\PudelkoLibrary.csproj" />
     </ItemGroup>
 
 </Project>

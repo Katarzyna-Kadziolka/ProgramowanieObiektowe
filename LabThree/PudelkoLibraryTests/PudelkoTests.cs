@@ -557,4 +557,118 @@ public class PudelkoTests {
     }
     
     #endregion
+
+    #region Operators overloading
+    [Test]
+    public void OperatorEqual_NullAndNull_ShouldReturnTrue() {
+        // Arrange
+        // Act
+        var result = null == null;
+        // Assert
+        result.Should().BeTrue();
+    }
+
+    [Test]
+    public void OperatorEqual_LeftBoxIsNull_ShouldReturnFalse() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = null == box;
+        // Assert
+        result.Should().BeFalse();
+    }
+    [Test]
+    public void OperatorEqual_RightBoxIsNull_ShouldReturnFalse() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = box == null;
+        // Assert
+        result.Should().BeFalse();
+    }
+    [Test]
+    public void OperatorEqual_BoxesAreNotEqual_ShouldReturnFalse() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        var boxToCompare = new Pudelko(2m, 9.321m, 0.1m);
+        // Act
+        var result = box == boxToCompare;
+        // Assert
+        result.Should().BeFalse();
+    }
+    
+    [Test]
+    public void OperatorEqual_BoxesAreEqual_ShouldReturnTrue() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        var boxToCompare = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = box == boxToCompare;
+        // Assert
+        result.Should().BeTrue();
+    }
+    [Test]
+    public void OperatorNotEqual_NullAndNull_ShouldReturnFalse() {
+        // Arrange
+        // Act
+        var result = null != null;
+        // Assert
+        result.Should().BeFalse();
+    }
+
+    [Test]
+    public void OperatorNotEqual_LeftBoxIsNull_ShouldReturnTrue() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = null != box;
+        // Assert
+        result.Should().BeTrue();
+    }
+    [Test]
+    public void OperatorNotEqual_RightBoxIsNull_ShouldReturnTrue() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = box != null;
+        // Assert
+        result.Should().BeTrue();
+    }
+    [Test]
+    public void OperatorNotEqual_BoxesAreNotEqual_ShouldReturnTrue() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        var boxToCompare = new Pudelko(2m, 9.321m, 0.1m);
+        // Act
+        var result = box != boxToCompare;
+        // Assert
+        result.Should().BeTrue();
+    }
+    
+    [Test]
+    public void OperatorNotEqual_BoxesAreEqual_ShouldReturnFalse() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        var boxToCompare = new Pudelko(2.5m, 9.321m, 0.1m);
+        // Act
+        var result = box != boxToCompare;
+        // Assert
+        result.Should().BeFalse();
+    }
+    [Test]
+    public void OperatorPlus_ShouldReturnPudelko() {
+        // Arrange
+        var box = new Pudelko(2.5m, 9.321m, 0.1m);
+        var boxToAdd = new Pudelko(3m, 0.8m, 0.3m);
+        // Act
+        var resultBox = box + boxToAdd;
+        // Assert
+        resultBox.A.Should().Be(9.321m);
+        resultBox.B.Should().Be(2.500m);
+        resultBox.C.Should().Be(0.400m);
+        resultBox.Unit.Should().Be(UnitOfMeasure.Meter);
+    }
+    
+
+    #endregion
 }
