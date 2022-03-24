@@ -387,7 +387,7 @@ public class PudelkoTests {
         var p = new Pudelko(a, b, c, unit: UnitOfMeasure.Meter);
         Assert.AreEqual(expectedStringRepresentation, p.ToString(format));
     }
-    
+
     [Test]
     public void ToString_DefaultUnitMeasure_FormatException() {
         var p = new Pudelko(2.5m, 9.321m, 0.1m, UnitOfMeasure.Meter);
@@ -401,6 +401,93 @@ public class PudelkoTests {
         Action act = () => p.ToString("wrong code");
         act.Should().Throw<FormatException>();
     }
+
+    #endregion
+
+    #region Conversions
+
+    [Test]
+    public void ExplicitConversion_ToDoubleArray_AsMeters() {
+        var p = new Pudelko(1, 2.1m, 3.231m);
+        double[] tab = (double[])p;
+        Assert.AreEqual(3, tab.Length);
+        Assert.AreEqual(p.A, tab[0]);
+        Assert.AreEqual(p.B, tab[1]);
+        Assert.AreEqual(p.C, tab[2]);
+    }
+
+    [Test]
+    public void ImplicitConversion_FromAalueTuple_As_Pudelko_InMilimeters() {
+        var (a, b, c) = (2500, 9321, 100); // in milimeters, ValueTuple
+        Pudelko p = (a, b, c);
+        Assert.AreEqual((int)(p.A * 1000), a);
+        Assert.AreEqual((int)(p.B * 1000), b);
+        Assert.AreEqual((int)(p.C * 1000), c);
+    }
+
+    #endregion
+
+    #region Indexer, enumeration
+
+    [Test]
+    public void Indexer_ReadFrom() {
+        var p = new Pudelko(1, 2.1m, 3.231m);
+        Assert.AreEqual(p.A, p[0]);
+        Assert.AreEqual(p.B, p[1]);
+        Assert.AreEqual(p.C, p[2]);
+    }
+
+    [Test]
+    public void ForEach_Test() {
+        var p = new Pudelko(1, 2.1m, 3.231m);
+        var tab = new[] { p.A, p.B, p.C };
+        int i = 0;
+        foreach (var x in p) {
+            Assert.AreEqual(x, tab[i]);
+            i++;
+        }
+    }
+
+    #endregion
+
+    #region Parsing
+
+    [Test]
+    [TestCase("2.500 m × 9.321 m × 0.100 m", 2.500, 9.321, 0.100, UnitOfMeasure.Meter)]
+    [TestCase("250.0 cm × 932.1 cm × 10.0 cm", 2.500, 9.321, 0.100, UnitOfMeasure.Centimeter)]
+    [TestCase("2500 mm × 9321 mm × 100 mm", 2.500, 9.321, 0.100, UnitOfMeasure.Milimeter)]
+    public void Parse_CorrectString_ShouldReturnPudelko(string text, decimal expectedA, decimal expectedB, decimal expectedC, UnitOfMeasure expectedUnit) {
+        // Arrange
+        // Act
+        var box = Pudelko.Parse(text);
+        // Assert
+        box.A.Should().Be(expectedA);
+        box.B.Should().Be(expectedB);
+        box.C.Should().Be(expectedC);
+        box.Unit.Should().Be(expectedUnit);
+    }
+    [Test]
+    [TestCase("2.500 m × 9.321 m")]
+    [TestCase("250.0 cm × 932.1 cm")]
+    [TestCase("2500 mm × 9321 mm")]
+    [TestCase("2.500 m")]
+    [TestCase("250.0 cm")]
+    [TestCase("2500 mm")]
+    [TestCase("")]
+    [TestCase("abababa")]
+    public void Parse_OneParameterLess_ShouldThrowFormatException(string text) {
+        // Arrange
+        // Act
+        var act = () => Pudelko.Parse(text);
+        // Assert
+        act.Should().Throw<FormatException>().WithMessage("Do not find any matches");
+    }
+
+    #endregion
+
+    #region Pole, Objętość
+
+    
 
     #endregion
 }

@@ -121,7 +121,7 @@ public sealed class Pudelko : IEquatable<Pudelko>, IEnumerable<decimal>, IFormat
         var regex = new Regex(@"([0-9]+\.?[0-9]*) ([m,mm,cm]+)");
         var matches = regex.Matches(text);
         if (matches.Count != 3) {
-            throw new FormatException();
+            throw new FormatException("Do not find any matches");
         }
 
         var values = matches.Select(a => decimal.Parse(a.Groups[1].Value)).ToArray();
