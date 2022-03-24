@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PudelkoLibrary", "PudelkoLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PudelkoLibraryTests", "PudelkoLibraryTests\PudelkoLibraryTests.csproj", "{741DD374-DDCB-4CC3-A430-6A4045678158}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PudelkoConsoleApp", "PudelkoConsoleApp\PudelkoConsoleApp.csproj", "{78B8F257-4BCC-4E15-8596-C3D46681A897}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{741DD374-DDCB-4CC3-A430-6A4045678158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{741DD374-DDCB-4CC3-A430-6A4045678158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{741DD374-DDCB-4CC3-A430-6A4045678158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B8F257-4BCC-4E15-8596-C3D46681A897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B8F257-4BCC-4E15-8596-C3D46681A897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B8F257-4BCC-4E15-8596-C3D46681A897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B8F257-4BCC-4E15-8596-C3D46681A897}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
