@@ -1,32 +1,9 @@
 using System;
-using System.IO;
 using NUnit.Framework;
-using Zadanie1;
 using Zadanie1.Devices;
 using Zadanie1.Documents;
 
 namespace Zadanie1UnitTests;
-
-public class ConsoleRedirectionToStringWriter : IDisposable {
-    private StringWriter stringWriter;
-    private TextWriter originalOutput;
-
-    public ConsoleRedirectionToStringWriter() {
-        stringWriter = new StringWriter();
-        originalOutput = Console.Out;
-        Console.SetOut(stringWriter);
-    }
-
-    public string GetOutput() {
-        return stringWriter.ToString();
-    }
-
-    public void Dispose() {
-        Console.SetOut(originalOutput);
-        stringWriter.Dispose();
-    }
-}
-
 public class UnitTestCopier {
     [Test]
     public void Copier_GetState_StateOff() {
