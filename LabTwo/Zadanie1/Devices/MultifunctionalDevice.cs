@@ -46,14 +46,14 @@ public class MultifunctionalDevice: BaseDevice, IFax {
             SendCounter++;
             IDocument document;
             Scan(out document);
-            Console.WriteLine($"{document.GetFileName()} sent");
+            Console.WriteLine($"Send: {document.GetFileName()}");
         }
     }
 
     public void Receive(in IDocument document) {
         if (state == IDevice.State.on) {
             ReceiveCounter++;
-            Console.WriteLine($"Receive {document.GetFileName()}");
+            Console.WriteLine($"Receive: {document.GetFileName()}");
             Print(document);
         }
     }
