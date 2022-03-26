@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using NUnit.Framework;
 using Zadanie1;
+using Zadanie1.Devices;
+using Zadanie1.Documents;
 
 namespace Zadanie1UnitTests;
 
@@ -211,7 +213,8 @@ public class UnitTestCopier {
         copier.PowerOn();
 
         IDocument doc1;
-        copier.Scan(out doc1);
+        copier.Scan(out doc1
+        );
         IDocument doc2;
         copier.Scan(out doc2);
 
