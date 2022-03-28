@@ -1,6 +1,6 @@
-﻿using Zadanie1.Documents;
+﻿using Zadanie3.Documents;
 
-namespace Zadanie1.Devices; 
+namespace Zadanie3.Devices; 
 
 public interface IPrinter : IDevice {
     /// <summary>
