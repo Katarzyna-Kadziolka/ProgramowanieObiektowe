@@ -3,7 +3,6 @@
 namespace Zadanie3.Devices; 
 
 public class Scanner: BaseDevice, IScanner {
-    public int Counter { get; set; }
     public int ScanCounter { get; set; }
     public void Scan(out IDocument document, IDocument.FormatType formatType = IDocument.FormatType.JPG) {
         if (state == IDevice.State.on) {
@@ -29,7 +28,6 @@ public class Scanner: BaseDevice, IScanner {
     }
     public void PowerOn() {
         if (state == IDevice.State.off) {
-            Counter++;
             base.PowerOn();
         }
     }
