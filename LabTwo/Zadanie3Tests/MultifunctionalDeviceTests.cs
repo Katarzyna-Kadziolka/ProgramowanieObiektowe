@@ -1,27 +1,13 @@
 ﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
-using Zadanie1.Devices;
-using Zadanie1.Documents;
+using Zadanie1UnitTests;
+using Zadanie3.Devices;
+using Zadanie3.Documents;
 
-namespace Zadanie1UnitTests; 
+namespace Zadanie3Tests; 
 
 public class MultifunctionalDeviceTests {
-    [Test]
-    public void MultifunctionalDevice_GetState_StateOff() {
-        var copier = new MultifunctionalDevice();
-        copier.PowerOff();
-
-        Assert.AreEqual(IDevice.State.off, copier.GetState());
-    }
-
-    [Test]
-    public void MultifunctionalDevice_GetState_StateOn() {
-        var copier = new MultifunctionalDevice();
-        copier.PowerOn();
-
-        Assert.AreEqual(IDevice.State.on, copier.GetState());
-    }
     [Test]
     public void SendCounter_ShouldRetunInt() {
         // Arrange
@@ -135,69 +121,6 @@ public class MultifunctionalDeviceTests {
             Assert.IsFalse(consoleOutput.GetOutput().Contains("Print"));
         }
         // Assert
-        Assert.AreEqual(currentConsoleOut, Console.Out);
-    }
-    [Test]
-    public void Print_DeviceOn() {
-        var multifunctionalDevice = new MultifunctionalDevice();
-        multifunctionalDevice.PowerOn();
-
-        var currentConsoleOut = Console.Out;
-        currentConsoleOut.Flush();
-        using (var consoleOutput = new ConsoleRedirectionToStringWriter()) {
-            IDocument doc1 = new PDFDocument("aaa.pdf");
-            multifunctionalDevice.Print(in doc1);
-            Assert.IsTrue(consoleOutput.GetOutput().Contains("Print"));
-        }
-
-        Assert.AreEqual(currentConsoleOut, Console.Out);
-    }
-    
-    [Test]
-    public void Print_DeviceOff() {
-        var multifunctionalDevice = new MultifunctionalDevice();
-        multifunctionalDevice.PowerOff();
-
-        var currentConsoleOut = Console.Out;
-        currentConsoleOut.Flush();
-        using (var consoleOutput = new ConsoleRedirectionToStringWriter()) {
-            IDocument doc1 = new PDFDocument("aaa.pdf");
-            multifunctionalDevice.Print(in doc1);
-            Assert.IsFalse(consoleOutput.GetOutput().Contains("Print"));
-        }
-
-        Assert.AreEqual(currentConsoleOut, Console.Out);
-    }
-    
-    [Test]
-    public void Scan_DeviceOff() {
-        var multifunctionalDevice = new MultifunctionalDevice();
-        multifunctionalDevice.PowerOff();
-
-        var currentConsoleOut = Console.Out;
-        currentConsoleOut.Flush();
-        using (var consoleOutput = new ConsoleRedirectionToStringWriter()) {
-            IDocument doc1;
-            multifunctionalDevice.Scan(out doc1);
-            Assert.IsFalse(consoleOutput.GetOutput().Contains("Scan"));
-        }
-
-        Assert.AreEqual(currentConsoleOut, Console.Out);
-    }
-    
-    [Test]
-    public void Scan_DeviceOn() {
-        var multifunctionalDevice = new MultifunctionalDevice();
-        multifunctionalDevice.PowerOn();
-
-        var currentConsoleOut = Console.Out;
-        currentConsoleOut.Flush();
-        using (var consoleOutput = new ConsoleRedirectionToStringWriter()) {
-            IDocument doc1;
-            multifunctionalDevice.Scan(out doc1);
-            Assert.IsTrue(consoleOutput.GetOutput().Contains("Scan"));
-        }
-
         Assert.AreEqual(currentConsoleOut, Console.Out);
     }
 }

@@ -94,28 +94,4 @@ public class ScannerTests {
 
         Assert.AreEqual(2, scanner.ScanCounter);
     }
-
-    [Test]
-    public void Scanner_PowerOnCounter() {
-        var scanner = new Scanner();
-        scanner.PowerOn();
-        scanner.PowerOn();
-        scanner.PowerOn();
-
-        IDocument doc1;
-        scanner.Scan(out doc1);
-        IDocument doc2;
-        scanner.Scan(out doc2);
-
-        scanner.PowerOff();
-        scanner.PowerOff();
-        scanner.PowerOff();
-        scanner.PowerOn();
-
-        scanner.PowerOff();
-        scanner.Scan(out doc1);
-        scanner.PowerOn();
-
-        Assert.AreEqual(3, scanner.Counter);
-    }
 }
