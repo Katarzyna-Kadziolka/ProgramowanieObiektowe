@@ -3,18 +3,18 @@
 namespace Zadanie3.Devices; 
 
 public class Copier: BaseDevice {
-    private Printer _printer;
-    private Scanner _scanner;
+    public Printer Printer { get; set; }
+    public Scanner Scanner { get; set; }
 
     public Copier() {
-        _printer = new Printer();
-        _scanner = new Scanner();
+        Printer = new Printer();
+        Scanner = new Scanner();
     }
     public void Scan(out IDocument document, IDocument.FormatType formatType = IDocument.FormatType.JPG) {
         if (state == IDevice.State.on) {
-            _scanner.PowerOn();
-            _scanner.Scan(out document, formatType);
-            _scanner.PowerOff();
+            Scanner.PowerOn();
+            Scanner.Scan(out document, formatType);
+            Scanner.PowerOff();
         }
         else {
             document = null;
@@ -23,9 +23,9 @@ public class Copier: BaseDevice {
 
     public void Print(in IDocument document) {
         if (state == IDevice.State.on) {
-            _printer.PowerOn();
-            _printer.Print(document);
-            _printer.PowerOff();
+            Printer.PowerOn();
+            Printer.Print(document);
+            Printer.PowerOff();
         }
     }
 
