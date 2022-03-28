@@ -6,9 +6,7 @@ using Zadanie3.Documents;
 
 namespace Zadanie3Tests;
 
-public class Tests {
-    [SetUp]
-    public void Setup() { }
+public class PrinterTests {
 
     [Test]
     public void Printer_GetState_StateOff() {
@@ -75,7 +73,26 @@ public class Tests {
 
         printer.Print(in doc3);
 
-        // 5 wydruków, gdy urządzenie włączone
         Assert.AreEqual(4, printer.PrintCounter);
+    }
+    [Test]
+    public void Printer_PowerOnCounter() {
+        var printer = new Printer();
+        printer.PowerOn();
+        printer.PowerOn();
+        printer.PowerOn();
+        printer.PowerOff();
+        printer.PowerOff();
+        printer.PowerOff();
+        printer.PowerOn();
+
+        IDocument doc3 = new ImageDocument("aaa.jpg");
+        printer.Print(in doc3);
+
+        printer.PowerOff();
+        printer.Print(in doc3);
+        printer.PowerOn();
+
+        Assert.AreEqual(3, printer.Counter);
     }
 }
