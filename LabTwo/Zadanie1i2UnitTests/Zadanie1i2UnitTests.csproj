@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
+
+        <RootNamespace>Zadanie1UnitTests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Zadanie1\Zadanie1.csproj" />
+      <ProjectReference Include="..\Zadanie1i2\Zadanie1i2.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿using System.Threading.Channels;
-using Zadanie1.Devices;
+﻿using Zadanie1.Devices;
 using Zadanie1.Documents;
 
 // var xerox = new Copier();

@@ -1,8 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie1", "Zadanie1\Zadanie1.csproj", "{5B7A5812-4E64-48BD-BACA-564E73F8DE0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie1i2", "Zadanie1i2\Zadanie1i2.csproj", "{5B7A5812-4E64-48BD-BACA-564E73F8DE0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie1UnitTests", "Zadanie1UnitTests\Zadanie1UnitTests.csproj", "{1957153D-CB24-4798-9567-6B12E8105DED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie1i2UnitTests", "Zadanie1i2UnitTests\Zadanie1i2UnitTests.csproj", "{1957153D-CB24-4798-9567-6B12E8105DED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zadanie1i2", "Zadanie1i2", "{7C560402-B3EC-4A7E-87AD-3479F917D038}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zadanie3", "Zadanie3", "{44F479DA-97BA-42B1-9EF4-FC04E5DD1526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie3", "Zadanie3\Zadanie3.csproj", "{A57252E9-6980-456C-8598-1DB13F2E18AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +24,14 @@ Global
 		{1957153D-CB24-4798-9567-6B12E8105DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1957153D-CB24-4798-9567-6B12E8105DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1957153D-CB24-4798-9567-6B12E8105DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A57252E9-6980-456C-8598-1DB13F2E18AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A57252E9-6980-456C-8598-1DB13F2E18AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A57252E9-6980-456C-8598-1DB13F2E18AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A57252E9-6980-456C-8598-1DB13F2E18AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5B7A5812-4E64-48BD-BACA-564E73F8DE0D} = {7C560402-B3EC-4A7E-87AD-3479F917D038}
+		{1957153D-CB24-4798-9567-6B12E8105DED} = {7C560402-B3EC-4A7E-87AD-3479F917D038}
+		{A57252E9-6980-456C-8598-1DB13F2E18AA} = {44F479DA-97BA-42B1-9EF4-FC04E5DD1526}
 	EndGlobalSection
 EndGlobal
