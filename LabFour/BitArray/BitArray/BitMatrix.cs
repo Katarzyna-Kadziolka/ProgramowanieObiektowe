@@ -42,13 +42,13 @@ public class BitMatrix: IEnumerable<bool> {
         }
     }
 
-    public BitMatrix And(BitMatrix other) {
-        foreach (var row in other) {
-            foreach (bool cell in row) {
-                throw new NotImplementedException();
-            }
-        }
-    }
+    //public BitMatrix And(BitMatrix other) {
+     //   foreach (var row in other) {
+     //       foreach (bool cell in row) {
+     //           throw new NotImplementedException();
+    //        }
+    //    }
+    //}
     
     public BitMatrix Or(BitMatrix other) {
         throw new NotImplementedException();
